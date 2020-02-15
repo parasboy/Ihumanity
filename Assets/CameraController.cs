@@ -25,21 +25,25 @@ public class CameraController : MonoBehaviour {
 	}
 	
 	void Update () {
-		// Position the camera in the center.
-		Vector3 newCameraPos = mainCam.transform.position;
-		newCameraPos.x = middlePoint.x;
-		mainCam.transform.position = newCameraPos;
-		
-		// Find the middle point between players.
-		Vector3 vectorBetweenPlayers = player2.position - player1.position;
-		middlePoint = player1.position + 0.5f * vectorBetweenPlayers;
-		
-		// Calculate the new distance.
-		distanceBetweenPlayers = vectorBetweenPlayers.magnitude;
-		cameraDistance = (distanceBetweenPlayers / 0.75f / aspectRatio) / tanFov;
-		
-		// Set camera to new position.
-		Vector3 dir = (mainCam.transform.position - middlePoint).normalized;
-		mainCam.transform.position = middlePoint + dir * (cameraDistance + DISTANCE_MARGIN);
+
+		if (player1 != null && player2 != null) {
+			
+			// Position the camera in the center.
+			Vector3 newCameraPos = mainCam.transform.position;
+			newCameraPos.x = middlePoint.x;
+			mainCam.transform.position = newCameraPos;
+			
+			// Find the middle point between players.
+			Vector3 vectorBetweenPlayers = player2.position - player1.position;
+			middlePoint = player1.position + 0.5f * vectorBetweenPlayers;
+			
+			// Calculate the new distance.
+			distanceBetweenPlayers = vectorBetweenPlayers.magnitude;
+			cameraDistance = (distanceBetweenPlayers / 0.75f / aspectRatio) / tanFov;
+			
+			// Set camera to new position.
+			Vector3 dir = (mainCam.transform.position - middlePoint).normalized;
+			mainCam.transform.position = middlePoint + dir * (cameraDistance + DISTANCE_MARGIN);
+		}
 	}
 }
